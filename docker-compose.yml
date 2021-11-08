@@ -12,7 +12,7 @@ services:
       - ./:/usr/src/app:rw
 
   gotenberg:
-    image: thecodingmachine/gotenberg:6
+    image: thecodingmachine/gotenberg:7
     environment:
       LOG_LEVEL: 'DEBUG'
       DEFAULT_WAIT_TIMEOUT: '30.0'
