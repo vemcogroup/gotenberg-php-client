@@ -54,7 +54,7 @@ final class ClientTest extends TestCase
         $request = new HTMLRequest($index);
         $request->setResultFilename('foo.pdf');
         $request->setWaitTimeout(5.0);
-        $request->setWaitDelay(1.0);
+        $request->setWaitDelay('1.0s');
         $request->setHeader($header);
         $request->setFooter($footer);
         $request->setAssets($assets);
@@ -76,7 +76,7 @@ final class ClientTest extends TestCase
         $request = new URLRequest('https://google.com');
         $request->setResultFilename('foo.pdf');
         $request->setWaitTimeout(5.0);
-        $request->setWaitDelay(1.0);
+        $request->setWaitDelay('1.0s');
         $request->setHeader($header);
         $request->setFooter($footer);
         $request->setPaperSize(Request::A4);
@@ -97,17 +97,20 @@ final class ClientTest extends TestCase
             DocumentFactory::makeFromPath('paragraph2.md', __DIR__ . '/assets/markdown/paragraph2.md'),
             DocumentFactory::makeFromPath('paragraph3.md', __DIR__ . '/assets/markdown/paragraph3.md'),
         ];
+
         $header = DocumentFactory::makeFromPath('header.html', __DIR__ . '/assets/markdown/header.html');
         $footer = DocumentFactory::makeFromPath('footer.html', __DIR__ . '/assets/markdown/footer.html');
+
         $assets = [
             DocumentFactory::makeFromPath('font.woff', __DIR__ . '/assets/markdown/font.woff'),
             DocumentFactory::makeFromPath('img.gif', __DIR__ . '/assets/markdown/img.gif'),
             DocumentFactory::makeFromPath('style.css', __DIR__ . '/assets/markdown/style.css'),
         ];
+
         $request = new MarkdownRequest($index, $markdowns);
         $request->setResultFilename('foo.pdf');
         $request->setWaitTimeout(5.0);
-        $request->setWaitDelay(1.0);
+        $request->setWaitDelay('1.0s');
         $request->setHeader($header);
         $request->setFooter($footer);
         $request->setAssets($assets);
@@ -151,22 +154,27 @@ final class ClientTest extends TestCase
     public function testPost(): void
     {
         $client = new Client(self::API_URL, new \Http\Adapter\Guzzle6\Client());
+
         // case 1: HTML.
         $response = $client->post($this->HTMLRequest);
         $this->assertEquals($response->getHeaderLine('Content-Type'), 'application/pdf');
         $this->assertNotEmpty($response->getBody());
+
         // case 2: URL.
         $response = $client->post($this->URLRequest);
         $this->assertEquals($response->getHeaderLine('Content-Type'), 'application/pdf');
         $this->assertNotEmpty($response->getBody());
+
         // case 3: markdown.
         $response = $client->post($this->markdownRequest);
         $this->assertEquals($response->getHeaderLine('Content-Type'), 'application/pdf');
         $this->assertNotEmpty($response->getBody());
+
         // case 4: office.
         $response = $client->post($this->officeRequest);
         $this->assertEquals($response->getHeaderLine('Content-Type'), 'application/pdf');
         $this->assertNotEmpty($response->getBody());
+
         // case 5: merge.
         $response = $client->post($this->mergeRequest);
         $this->assertEquals($response->getHeaderLine('Content-Type'), 'application/pdf');
@@ -181,22 +189,27 @@ final class ClientTest extends TestCase
     public function testStore(): void
     {
         $client = new Client(self::API_URL);
+
         // case 1: HTML.
         $filePath = __DIR__ . '/store/resultHTML.pdf';
         $client->store($this->HTMLRequest, $filePath);
         $this->assertFileExists($filePath);
+
         // case 2: URL.
         $filePath = __DIR__ . '/store/resultURL.pdf';
         $client->store($this->URLRequest, $filePath);
         $this->assertFileExists($filePath);
+
         // case 3: markdown.
         $filePath = __DIR__ . '/store/resultMarkdown.pdf';
         $client->store($this->markdownRequest, $filePath);
         $this->assertFileExists($filePath);
+
         // case 4: office.
         $filePath = __DIR__ . '/store/resultOffice.pdf';
         $client->store($this->officeRequest, $filePath);
         $this->assertFileExists($filePath);
+
         // case 5: merge.
         $filePath = __DIR__ . '/store/resultMerge.pdf';
         $client->store($this->mergeRequest, $filePath);
@@ -210,24 +223,28 @@ final class ClientTest extends TestCase
     public function testPageRanges(): void
     {
         $client = new Client(self::API_URL, new \Http\Adapter\Guzzle6\Client());
+
         // case 1: HTML.
         $request = $this->createHTMLRequest();
         $request->setPageRanges('1-1');
         $response = $client->post($request);
         $this->assertEquals($response->getHeaderLine('Content-Type'), 'application/pdf');
         $this->assertNotEmpty($response->getBody());
+
         // case 2: URL.
         $request = $this->createURLRequest();
         $request->setPageRanges('1-1');
         $response = $client->post($request);
         $this->assertEquals($response->getHeaderLine('Content-Type'), 'application/pdf');
         $this->assertNotEmpty($response->getBody());
+
         // case 3: markdown.
         $request = $this->createMarkdownRequest();
         $request->setPageRanges('1-1');
         $response = $client->post($request);
         $this->assertEquals($response->getHeaderLine('Content-Type'), 'application/pdf');
         $this->assertNotEmpty($response->getBody());
+
         // case 4: office.
         $request = $this->createOfficeRequest();
         $request->setPageRanges('1-1');

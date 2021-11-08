@@ -20,7 +20,7 @@ abstract class ChromeRequest extends Request implements GotenbergRequestInterfac
     private const GOOGLE_CHROME_RPCC_BUFFER_SIZE = 'googleChromeRpccBufferSize';
     private const SCALE = 'scale';
 
-    /** @var float|null */
+    /** @var string|null */
     private $waitDelay;
 
     /** @var Document|null */
@@ -116,7 +116,7 @@ abstract class ChromeRequest extends Request implements GotenbergRequestInterfac
         return $files;
     }
 
-    public function setWaitDelay(?float $waitDelay): void
+    public function setWaitDelay(?string $waitDelay): void
     {
         $this->waitDelay = $waitDelay;
     }

@@ -6,7 +6,7 @@ namespace TheCodingMachine\Gotenberg;
 
 final class URLRequest extends ChromeRequest implements GotenbergRequestInterface
 {
-    private const REMOTE_URL = 'remoteURL';
+    private const REMOTE_URL = 'url';
 
     private const REMOTE_URL_BASE_HTTP_HEADER_KEY = 'Gotenberg-Remoteurl-';
 
@@ -21,7 +21,7 @@ final class URLRequest extends ChromeRequest implements GotenbergRequestInterfac
 
     public function getPostURL(): string
     {
-        return '/convert/url';
+        return '/forms/chromium/convert/url';
     }
 
     /**

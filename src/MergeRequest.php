@@ -20,7 +20,7 @@ final class MergeRequest extends Request implements GotenbergRequestInterface
 
     public function getPostURL(): string
     {
-        return '/merge';
+        return '/forms/pdfengines/merge';
     }
 
     /**

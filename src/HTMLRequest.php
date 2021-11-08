@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TheCodingMachine\Gotenberg;
 
-class HTMLRequest extends ChromeRequest implements GotenbergRequestInterface
+class HTMLRequest extends ChromeRequest
 {
     /** @var Document */
     private $index;
@@ -21,7 +21,7 @@ class HTMLRequest extends ChromeRequest implements GotenbergRequestInterface
 
     public function getPostURL(): string
     {
-        return '/convert/html';
+        return '/forms/chromium/convert/html';
     }
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TheCodingMachine\Gotenberg;
 
-final class MarkdownRequest extends HTMLRequest implements GotenbergRequestInterface
+final class MarkdownRequest extends HTMLRequest
 {
     /** @var Document[] */
     private $markdowns;
@@ -20,7 +20,7 @@ final class MarkdownRequest extends HTMLRequest implements GotenbergRequestInter
 
     public function getPostURL(): string
     {
-        return '/convert/markdown';
+        return '/forms/chromium/convert/markdown';
     }
 
     /**

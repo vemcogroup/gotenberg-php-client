@@ -29,7 +29,7 @@ final class OfficeRequest extends Request implements GotenbergRequestInterface
 
     public function getPostURL(): string
     {
-        return '/convert/office';
+        return '/forms/libreoffice/convert';
     }
 
     /**
